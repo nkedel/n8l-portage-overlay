@@ -35,10 +35,9 @@ DEPEND="${CDEPEND}
 	dev-qt/linguist-tools:5
 	dev-util/intltool
 	sys-devel/gettext
-	virtual/pkgconfig
-	x11-misc/xdg-user-dirs"
+	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
-	>=lxqt-base/lxqt-common-0.10.0"
+	=lxqt-base/lxqt-common-0.11*"
 
 src_install(){
 	cmake-utils_src_install

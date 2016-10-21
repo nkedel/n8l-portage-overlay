@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -35,28 +35,13 @@ RDEPEND="opencl? ( >=virtual/opencl-0-r3[${MULTILIB_USEDEP}] )
 
 DOCS="AUTHORS doc/*.txt"
 
-src_prepare() {
-	# Initial support for x32 ABI, bug #420241
-	# Avoid messing too much with CFLAGS.
-	epatch "${FILESDIR}"/x264-0.0.20151011-cflags.patch
-}
-
-src_compile() {
-         emake fprofiled VIDS="/usr/local/portage/media-libs/x264/files/mother-daughter_352x288.yuv /usr/local/portage/media-libs/x264/files/example.y4m /usr/local/portage/media-libs/x264/files/mrsd.y4m /usr/local/portage/media-libs/x264/files/tw.y4m /usr/local/portage/media-libs/x264/files/yh.y4m /usr/local/portage/media-libs/x264/files/villa.y4m"
-}
-
-
 multilib_src_configure() {
 	tc-export CC
 	local asm_conf=""
 
-	if [[ ${ABI} == x86* ]] && use pic || [[ ${ABI} == "x32" ]]; then
+	if [[ ${ABI} == x86* ]] && { use pic || use !cpu_flags_x86_sse ; } || [[ ${ABI} == "x32" ]]; then
 		asm_conf=" --disable-asm"
 	fi
-
-	# Upstream uses this, see the cflags patch
-	use cpu_flags_x86_sse && append-flags "-msse" "-mfpmath=sse"
-	append-flags "-ffast-math"
 
 	"${S}/configure" \
 		--prefix="${EPREFIX}"/usr \
@@ -76,4 +61,8 @@ multilib_src_configure() {
 		$(usex static-libs "--enable-static" "") \
 		$(usex threads "" "--disable-thread") \
 		${asm_conf} || die
+}
+
+src_compile() {
+        emake fprofiled VIDS="/usr/local/portage/media-libs/x264/files/sasdc.y4m /usr/local/portage/media-libs/x264/files/mother-daughter_352x288.yuv /usr/local/portage/media-libs/x264/files/example.y4m /usr/local/portage/media-libs/x264/files/mrsd.y4m /usr/local/portage/media-libs/x264/files/tw.y4m /usr/local/portage/media-libs/x264/files/yh.y4m /usr/local/portage/media-libs/x264/files/villa.y4m"
 }

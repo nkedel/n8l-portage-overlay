@@ -27,7 +27,7 @@ RDEPEND="
 	virtual/ttf-fonts
 	about? ( ~lxqt-base/lxqt-about-${PV} )
 	admin? ( ~lxqt-base/lxqt-admin-${PV} )
-	filemanager? ( >=x11-misc/pcmanfm-qt-0.10.0 )
+	filemanager? ( >=x11-misc/pcmanfm-qt-0.10 )
 	icons? ( oxygen? ( kde-frameworks/oxygen-icons )
 		!oxygen? ( virtual/freedesktop-icon-theme ) )
 	lightdm? ( x11-misc/lightdm )

@@ -19,9 +19,9 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 
-DEPEND=">=lxqt-base/liblxqt-0.10.0"
+DEPEND=">=lxqt-base/liblxqt-0.11.0"
 RDEPEND="${DEPEND}"
-PDEPEND=">=lxqt-base/lxqt-session-0.10.0"
+PDEPEND=">=lxqt-base/lxqt-session-0.11.0"
 
 src_install() {
 	cmake-utils_src_install
