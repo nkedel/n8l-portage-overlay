@@ -1,0 +1,73 @@
+From e7253945f906344c08ca6cedce0667e112661589 Mon Sep 17 00:00:00 2001
+From: Nate Edel <nate.edel@gmail.com>
+Date: Wed, 12 Aug 2015 13:52:44 -0700
+Subject: [PATCH] Skip confirmation on same files, as I have a lot of symlinks
+
+---
+ src/filemanager/boxes.c | 2 ++
+ src/filemanager/file.c  | 1 +
+ src/setup.c             | 3 +++
+ src/setup.h             | 1 +
+ 4 files changed, 7 insertions(+)
+
+diff --git a/src/filemanager/boxes.c b/src/filemanager/boxes.c
+index e153e5f..56f6dad 100644
+--- a/src/filemanager/boxes.c
++++ b/src/filemanager/boxes.c
+@@ -930,6 +930,8 @@ confirm_box (void)
+                         &confirm_directory_hotlist_delete, NULL),
+         QUICK_CHECKBOX (Q_("Confirmation|&History cleanup"),
+                         &mc_global.widget.confirm_history_cleanup, NULL),
++        QUICK_CHECKBOX (Q_("Confirmation|Skip &same file"),
++                        &confirm_skip_same_file, NULL),
+         QUICK_BUTTONS_OK_CANCEL,
+         QUICK_END
+         /* *INDENT-ON* */
+diff --git a/src/filemanager/file.c b/src/filemanager/file.c
+index 0bacc54..58bc1f2 100644
+--- a/src/filemanager/file.c
++++ b/src/filemanager/file.c
+@@ -645,6 +645,7 @@ real_warn_same_file (enum OperationMode mode, const char *fmt, const char *a, co
+ static FileProgressStatus
+ warn_same_file (const char *fmt, const char *a, const char *b)
+ {
++    if (!confirm_skip_same_file) return FILE_SKIP;
+ #ifdef ENABLE_BACKGROUND
+ /* *INDENT-OFF* */
+     union
+diff --git a/src/setup.c b/src/setup.c
+index 5cd32ab..65c195d 100644
+--- a/src/setup.c
++++ b/src/setup.c
+@@ -101,6 +101,8 @@ int confirm_overwrite = 1;
+ int confirm_execute = 0;
+ /* Asks for confirmation before leaving the program */
+ int confirm_exit = 0;
++/* Shows skip/abort message when copying over the same file/inode */
++int confirm_skip_same_file = 0;
+ 
+ /* If true, at startup the user-menu is invoked */
+ int auto_menu = 0;
+@@ -289,6 +291,7 @@ static const struct
+     { "confirm_history_cleanup", &mc_global.widget.confirm_history_cleanup },
+     { "confirm_exit", &confirm_exit },
+     { "confirm_directory_hotlist_delete", &confirm_directory_hotlist_delete },
++    { "confirm_skip_same_file", &confirm_skip_same_file },
+     { "safe_delete", &safe_delete },
+     { "mouse_repeat_rate", &mou_auto_repeat },
+     { "double_click_speed", &double_click_speed },
+diff --git a/src/setup.h b/src/setup.h
+index 203ca30..d41ba5f 100644
+--- a/src/setup.h
++++ b/src/setup.h
+@@ -80,6 +80,7 @@ extern int confirm_execute;
+ extern int confirm_exit;
+ extern int confirm_overwrite;
+ extern int confirm_view_dir;
++extern int confirm_skip_same_file;
+ extern int safe_delete;
+ extern int clear_before_exec;
+ extern int auto_menu;
+-- 
+2.5.0
+
