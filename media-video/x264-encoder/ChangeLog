@@ -1,24 +1,12 @@
-# ChangeLog for media-libs/x264
+# ChangeLog for media-video/x264-encoder
 # Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # (auto-generated from git log)
 
-*x264-9999 (09 Aug 2015)
-*x264-0.0.20140308 (09 Aug 2015)
-*x264-0.0.20130912 (09 Aug 2015)
-*x264-0.0.20130731 (09 Aug 2015)
-*x264-0.0.20130506 (09 Aug 2015)
-*x264-0.0.20120707 (09 Aug 2015)
-*x264-0.0.20120327 (09 Aug 2015)
-*x264-0.0.20111220 (09 Aug 2015)
+*x264-encoder-9999 (09 Aug 2015)
+*x264-encoder-0.0.20140308 (09 Aug 2015)
 
-  09 Aug 2015; Robin H. Johnson <robbat2@gentoo.org>
-  +files/x264-0.0.20120707-gcc48.patch, +files/x264-0.0.20130731-cflags.patch,
-  +files/x264-0.0.20130912-cflags.patch, +files/x264-cflags.patch,
-  +files/x264-nostrip.patch, +files/x264-onlylib-20110425.patch,
-  +files/x264-x32.patch, +metadata.xml, +x264-0.0.20111220.ebuild,
-  +x264-0.0.20120327.ebuild, +x264-0.0.20120707.ebuild,
-  +x264-0.0.20130506.ebuild, +x264-0.0.20130731.ebuild,
-  +x264-0.0.20130912.ebuild, +x264-0.0.20140308.ebuild, +x264-9999.ebuild:
+  09 Aug 2015; Robin H. Johnson <robbat2@gentoo.org> +metadata.xml,
+  +x264-encoder-0.0.20140308.ebuild, +x264-encoder-9999.ebuild:
   proj/gentoo: Initial commit
 
   This commit represents a new era for Gentoo:
@@ -51,18 +39,21 @@
   X-Thanks: All of other Gentoo developers - many ideas and lots of paint on
   the bikeshed
 
-  21 Aug 2015; Alexis Ballier <aballier@gentoo.org> files/x264-cflags.patch,
-  x264-9999.ebuild:
-  update soname for subslot, fix cflags patch.
+*x264-encoder-0.0.20150820 (21 Aug 2015)
 
-  https://bugs.gentoo.org/show_bug.cgi?id=555990
+  21 Aug 2015; Alexis Ballier <aballier@gentoo.org>
+  +x264-encoder-0.0.20150820.ebuild:
+  bump a new snapshot
 
   Package-Manager: portage-2.2.20.1
 
-*x264-0.0.20150820 (21 Aug 2015)
+*x264-encoder-0.0.20150820-r1 (22 Aug 2015)
 
-  21 Aug 2015; Alexis Ballier <aballier@gentoo.org> +x264-0.0.20150820.ebuild:
-  bump a new snapshot
+  22 Aug 2015; Alexis Ballier <aballier@gentoo.org> +files/gpac.patch,
+  +x264-encoder-0.0.20150820-r1.ebuild, x264-encoder-9999.ebuild:
+  Fix gpac / mp4 support.
+
+  https://bugs.gentoo.org/show_bug.cgi?id=499116
 
   Package-Manager: portage-2.2.20.1
 
@@ -82,24 +73,23 @@
 
   Bug: https://bugs.gentoo.org/552720
 
+  16 Sep 2015; Alexis Ballier <aballier@gentoo.org> +files/ffmpeg29.patch,
+  x264-encoder-0.0.20150820-r1.ebuild:
+  fix build with ffmpeg git master.
+
+  Package-Manager: portage-2.2.20.1
+
+*x264-encoder-0.0.20151011 (12 Oct 2015)
+
   12 Oct 2015; Alexis Ballier <aballier@gentoo.org>
-  -files/x264-0.0.20120707-gcc48.patch, -files/x264-0.0.20130731-cflags.patch,
-  -files/x264-nostrip.patch, -files/x264-onlylib-20110425.patch,
-  -files/x264-x32.patch, -x264-0.0.20111220.ebuild, -x264-0.0.20120327.ebuild,
-  -x264-0.0.20120707.ebuild, -x264-0.0.20130506.ebuild,
-  -x264-0.0.20130731.ebuild, -x264-0.0.20130912.ebuild:
-  remove old.
+  +x264-encoder-0.0.20151011.ebuild:
+  bump to latest snapshot.
 
   Package-Manager: portage-2.2.23
 
-*x264-0.0.20151011 (12 Oct 2015)
-
-  12 Oct 2015; Alexis Ballier <aballier@gentoo.org>
-  +files/x264-0.0.20151011-cflags.patch, +x264-0.0.20151011.ebuild,
-  x264-9999.ebuild:
-  Bump to latest snapshot.
-
-  Also fix cflags patch, bug #562876.
+  12 Oct 2015; Alexis Ballier <aballier@gentoo.org> -files/ffmpeg29.patch,
+  -x264-encoder-0.0.20150820.ebuild, -x264-encoder-0.0.20150820-r1.ebuild:
+  remove old.
 
   Package-Manager: portage-2.2.23
 
@@ -112,15 +102,10 @@
   24 Jan 2016; Michał Górny <mgorny@gentoo.org> metadata.xml:
   Set appropriate maintainer types in metadata.xml (GLEP 67)
 
+*x264-encoder-0.0.20160523 (24 May 2016)
+
   24 May 2016; Alexis Ballier <aballier@gentoo.org>
-  +files/x264-0.0.20160523-cflags.patch, x264-9999.ebuild:
-  update cflags patch for live ebuild; bug #581196
-
-  Package-Manager: portage-2.3.0_rc1
-
-*x264-0.0.20160523 (24 May 2016)
-
-  24 May 2016; Alexis Ballier <aballier@gentoo.org> +x264-0.0.20160523.ebuild:
+  +x264-encoder-0.0.20160523.ebuild:
   bump a new snapshot
 
   Package-Manager: portage-2.3.0_rc1
