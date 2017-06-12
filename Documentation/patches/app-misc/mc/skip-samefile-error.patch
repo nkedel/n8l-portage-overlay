@@ -39,35 +39,37 @@ diff --git a/src/setup.c b/src/setup.c
 index 5cd32ab..65c195d 100644
 --- a/src/setup.c
 +++ b/src/setup.c
-@@ -101,6 +101,8 @@ int confirm_overwrite = 1;
- int confirm_execute = 0;
+@@ -101,6 +101,8 @@ gboolean confirm_overwrite = TRUE;
+ gboolean confirm_execute = FALSE;
  /* Asks for confirmation before leaving the program */
- int confirm_exit = 0;
+ gboolean confirm_exit = FALSE;
 +/* Shows skip/abort message when copying over the same file/inode */
-+int confirm_skip_same_file = 0;
++gboolean confirm_skip_same_file = 0;
  
  /* If true, at startup the user-menu is invoked */
- int auto_menu = 0;
+ gboolean auto_menu = FALSE;
 @@ -289,6 +291,7 @@ static const struct
      { "confirm_history_cleanup", &mc_global.widget.confirm_history_cleanup },
      { "confirm_exit", &confirm_exit },
      { "confirm_directory_hotlist_delete", &confirm_directory_hotlist_delete },
 +    { "confirm_skip_same_file", &confirm_skip_same_file },
+     { "confirm_view_dir", &confirm_view_dir },
      { "safe_delete", &safe_delete },
-     { "mouse_repeat_rate", &mou_auto_repeat },
-     { "double_click_speed", &double_click_speed },
+ #ifndef HAVE_CHARSET
+     { "eight_bit_clean", &mc_global.eight_bit_clean },
+     { "full_eight_bits", &mc_global.full_eight_bits },
 diff --git a/src/setup.h b/src/setup.h
 index 203ca30..d41ba5f 100644
 --- a/src/setup.h
 +++ b/src/setup.h
 @@ -80,6 +80,7 @@ extern int confirm_execute;
- extern int confirm_exit;
- extern int confirm_overwrite;
- extern int confirm_view_dir;
-+extern int confirm_skip_same_file;
- extern int safe_delete;
- extern int clear_before_exec;
- extern int auto_menu;
+ extern gboolean confirm_exit;
+ extern gboolean confirm_overwrite;
+ extern gboolean confirm_view_dir;
++extern gboolean confirm_skip_same_file;
+ extern gboolean safe_delete;
+ extern gboolean clear_before_exec;
+ extern gboolean auto_menu;
 -- 
 2.5.0
 
