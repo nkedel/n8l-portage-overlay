@@ -18,12 +18,17 @@ RDEPEND=">=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
 	abi_x86_32? ( !<=app-emulation/emul-linux-x86-medialibs-20130224-r6
 		!app-emulation/emul-linux-x86-medialibs[-abi_x86_32(-)] )"
 DEPEND="${RDEPEND}
-	dev-util/gperf"
+	>=dev-util/gperf-3.1"
 
 src_prepare() {
 	epunt_cxx #74489
 	epatch "${FILESDIR}/${PV}"/*.patch
-	elibtoolize #sane .so versionning on fbsd and .so -> .so.version symlink
+
+	# gperf 3.1 and newer generate code with a size_t length parameter,
+	# older versions are incompatible and take an unsigned int.
+	#has_version '>=dev-util/gperf-3.1' && epatch "${FILESDIR}/${P}-fix-signature.patch"
+        #
+	#elibtoolize #sane .so versionning on fbsd and .so -> .so.version symlink
 }
 
 multilib_src_configure() {
