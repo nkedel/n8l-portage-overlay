@@ -9,3 +9,4 @@ diff -pur libid3tag-0.15.1b-orig/compat.h libid3tag-0.15.1b/compat.h
 +					   register size_t);
  
  int id3_compat_fixup(struct id3_tag *);
+ 
