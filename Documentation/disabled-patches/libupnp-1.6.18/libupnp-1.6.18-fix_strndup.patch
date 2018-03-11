@@ -1,0 +1,27 @@
+--- libupnp-1.6.18.orig/upnp/src/api/UpnpString.c	2012-03-12 14:45:11.000000000 +0000
++++ libupnp-1.6.18/upnp/src/api/UpnpString.c	2014-11-10 19:50:13.346612451 +0000
+@@ -42,24 +42,6 @@
+ 	#endif /* HAVE_STRNLEN */
+ #endif /* WIN32 */
+ 
+-/* strndup() is a GNU extension. */
+-#if HAVE_STRNDUP && !defined(WIN32)
+-	extern char *strndup(__const char *__string, size_t __n);
+-#else /* HAVE_STRNDUP && !defined(WIN32) */
+-	static char *strndup(const char *__string, size_t __n)
+-	{
+-		size_t strsize = strnlen(__string, __n);
+-		char *newstr = (char *)malloc(strsize + 1);
+-		if (newstr == NULL)
+-			return NULL;
+-
+-		strncpy(newstr, __string, strsize);
+-		newstr[strsize] = 0;
+-
+-		return newstr;
+-	}
+-#endif /* HAVE_STRNDUP && !defined(WIN32) */
+-
+ /*!
+  * \brief Internal implementation of the class UpnpString.
+  *

@@ -1,0 +1,5 @@
+sys-apps/i2c-2.11
+virtual/jre:1.6
+virtual/jdk:1.6
+virtual/jre:1.7
+virtual/jdk:1.7
