@@ -233,7 +233,6 @@ games-emulation/mednafen
 games-emulation/mednaffe
 games-emulation/openmsx
 games-emulation/snes9x
-games-engines/exult
 games-engines/nazghul
 games-engines/openxcom
 games-engines/solarus
@@ -267,8 +266,6 @@ kde-misc/kdiff3
 kde-plasma/kscreenlocker
 kde-plasma/plasma-meta
 mail-client/mailx
-mail-filter/procmail
-mail-mta/ssmtp
 media-fonts/anonymous-pro
 media-fonts/artwiz-latin1
 media-fonts/bitstream-cyberbit
@@ -494,7 +491,6 @@ sys-fs/exfat-utils
 sys-fs/ext3grep
 sys-fs/fatsort
 sys-fs/fuse-exfat
-sys-fs/go-mtpfs
 sys-fs/jmtpfs
 sys-fs/lsscsi
 sys-fs/mdadm
@@ -541,9 +537,7 @@ x11-base/xorg-drivers
 x11-base/xorg-server
 x11-base/xorg-x11
 x11-libs/libdrm
-x11-libs/xapps
 x11-misc/fbpager
-x11-misc/lightdm
 x11-misc/pcmanfm
 x11-misc/sddm
 x11-misc/xdotool
