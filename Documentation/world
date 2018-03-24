@@ -226,7 +226,6 @@ dev-lang/luajit
 dev-lang/nasm
 dev-lang/nim
 dev-lang/ocaml
-dev-lang/open-cobol
 dev-lang/parrot
 dev-lang/pcc
 dev-lang/perl
@@ -335,7 +334,6 @@ games-puzzle/xtris
 games-puzzle/xwelltris
 games-roguelike/angband
 games-roguelike/dwarf-fortress
-games-roguelike/hengband
 games-roguelike/mangband
 games-roguelike/mazesofmonad
 games-roguelike/moria
@@ -484,7 +482,6 @@ media-sound/rip
 media-sound/schismtracker
 media-sound/sfc
 media-sound/shorten
-media-sound/sidplay
 media-sound/sox
 media-sound/streamripper
 media-sound/timidity++
@@ -739,10 +736,8 @@ x11-base/xorg-drivers
 x11-base/xorg-server
 x11-base/xorg-x11
 x11-libs/libdrm
-x11-libs/xapps
 x11-misc/colord
 x11-misc/fbpager
-x11-misc/lightdm
 x11-misc/pcmanfm
 x11-misc/pcmanfm-qt
 x11-misc/sddm
