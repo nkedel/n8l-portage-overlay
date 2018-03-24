@@ -5,7 +5,6 @@ app-admin/gentoo-perl-helpers
 app-admin/keepass
 app-admin/killproc
 app-admin/localepurge
-app-admin/logrotate
 app-admin/mcelog
 app-admin/mongo-tools
 app-admin/perl-cleaner
@@ -279,7 +278,6 @@ dev-vcs/bzr
 dev-vcs/cvs
 dev-vcs/giggle
 dev-vcs/git
-dev-vcs/git-cola
 dev-vcs/git-flow
 dev-vcs/mercurial
 dev-vcs/qgit
