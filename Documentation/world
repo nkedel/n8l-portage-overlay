@@ -230,7 +230,6 @@ dev-lang/parrot
 dev-lang/pcc
 dev-lang/perl
 dev-lang/python-exec
-dev-lang/ruby
 dev-lang/scala
 dev-lang/tcc
 dev-lang/vala
@@ -356,7 +355,6 @@ kde-frameworks/breeze-icons-rcc
 kde-misc/kdiff3
 kde-plasma/kwin
 kde-plasma/plasma-meta
-mail-client/mailx
 mail-mta/ssmtp
 media-fonts/andika
 media-fonts/anonymous-pro
