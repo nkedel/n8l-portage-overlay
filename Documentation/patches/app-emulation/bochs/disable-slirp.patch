@@ -1,0 +1,11 @@
+--- bochs-2.6.9/configure~	2017-04-08 23:46:13.000000000 -0700
++++ bochs-2.6.9/configure	2018-03-24 14:45:58.378541184 -0700
+@@ -23633,7 +23633,7 @@
+   if test $can_compile_slirp = 1; then
+     NETLOW_OBJS="$NETLOW_OBJS eth_slirp.o"
+     ethernet_modules="$ethernet_modules slirp"
+-    $as_echo "#define BX_NETMOD_SLIRP 1" >>confdefs.h
++    $as_echo "#define BX_NETMOD_SLIRP 0" >>confdefs.h
+ 
+     NETLOW_OBJS="$NETLOW_OBJS eth_socket.o"
+     ethernet_modules="$ethernet_modules socket"
