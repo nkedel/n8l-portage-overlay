@@ -451,7 +451,6 @@ media-gfx/fbida
 media-gfx/fblogo
 media-gfx/fontforge
 media-gfx/gimp
-media-gfx/graphicsmagick
 media-gfx/imagemagick
 media-gfx/inkscape
 media-gfx/jp2a
@@ -721,9 +720,6 @@ www-apache/mod_geoip2
 www-apache/mod_musicindex
 www-apache/mod_security
 www-apache/modsecurity-crs
-www-apps/mediawiki
-www-apps/nextcloud
-www-apps/wordpress
 www-client/elinks
 www-client/firefox-bin
 www-client/google-chrome
