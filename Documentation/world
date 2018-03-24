@@ -299,11 +299,6 @@ games-emulation/mednafen
 games-emulation/mednaffe
 games-emulation/openmsx
 games-emulation/snes9x
-games-emulation/stella
-games-engines/exult
-games-engines/nazghul
-games-engines/openxcom
-games-engines/solarus
 games-misc/asr-manpages
 games-misc/bsd-games
 games-misc/cowsay
@@ -494,7 +489,6 @@ media-video/gpac
 media-video/handbrake
 media-video/lsdvd
 media-video/makemkv
-media-video/mediainfo
 media-video/mjpegtools
 media-video/mkvtoolnix
 media-video/motion
@@ -668,7 +662,6 @@ sys-fs/dosfstools
 sys-fs/duperemove
 sys-fs/eudev
 sys-fs/exfat-utils
-sys-fs/ext3grep
 sys-fs/fatsort
 sys-fs/fuse-exfat
 sys-fs/go-mtpfs
