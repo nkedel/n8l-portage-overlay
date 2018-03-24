@@ -139,7 +139,6 @@ app-portage/g-cpan
 app-portage/gentoolkit
 app-portage/gentoopm
 app-portage/grs
-app-portage/g-sorcery
 app-portage/install-mask
 app-portage/java-ebuilder
 app-portage/layman
@@ -274,7 +273,6 @@ dev-util/valgrind
 dev-util/yacc
 dev-vcs/bzr
 dev-vcs/cvs
-dev-vcs/giggle
 dev-vcs/git
 dev-vcs/git-flow
 dev-vcs/mercurial
