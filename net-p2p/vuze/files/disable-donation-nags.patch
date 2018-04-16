@@ -1,0 +1,207 @@
+diff -u -Nr Azureus2.jardesc vuze-5.7.2.0/Azureus2.jardesc
+--- Azureus2.jardesc	2017-05-16 23:09:05.854163997 -0700
++++ Azureus2.jardesc	2017-05-16 23:15:07.616302531 -0700
+@@ -388,7 +388,6 @@
+         <javaElement handleIdentifier="=azureus2_svn/&lt;org.gudy.bouncycastle.crypto"/>
+         <javaElement handleIdentifier="=azureus2_svn/&lt;com.aelitis.azureus.core.networkmanager.impl"/>
+         <javaElement handleIdentifier="=azureus2_svn/&lt;org.gudy.azureus2.core3.peer.impl.control"/>
+-        <javaElement handleIdentifier="=azureus2_svn/&lt;org.gudy.azureus2.ui.swt.donations"/>
+         <javaElement handleIdentifier="=azureus2_svn/&lt;org.gudy.azureus2.ui.swt.exporttorrent.wizard"/>
+         <javaElement handleIdentifier="=azureus2_svn/&lt;org.gudy.azureus2.plugins.ui.toolbar"/>
+         <javaElement handleIdentifier="=azuis_svn/&lt;org.pf.text"/>
+diff -u -Nr com/aelitis/azureus/ui/swt/browser/listener/DisplayListener.java vuze-5.7.2.0/com/aelitis/azureus/ui/swt/browser/listener/DisplayListener.java
+--- com/aelitis/azureus/ui/swt/browser/listener/DisplayListener.java	2017-05-16 23:09:05.817498127 -0700
++++ com/aelitis/azureus/ui/swt/browser/listener/DisplayListener.java	2017-05-16 23:16:15.931487204 -0700
+@@ -31,7 +31,6 @@
+ import org.gudy.azureus2.pluginsimpl.local.PluginInitializer;
+ import org.gudy.azureus2.ui.swt.BrowserWrapper;
+ import org.gudy.azureus2.ui.swt.Utils;
+-import org.gudy.azureus2.ui.swt.donations.DonationWindow;
+ import org.gudy.azureus2.ui.swt.plugins.UISWTInstance;
+ import org.gudy.azureus2.ui.swt.plugins.UISWTView;
+ 
+@@ -90,8 +89,6 @@
+ 
+ 	public static final String OP_GET_SELECTED_CONTENT = "get-selected-content";
+ 
+-	public static final String OP_SHOW_DONATION_WINDOW = "show-donation-window";
+-
+ 	public static final String OP_OPEN_SEARCH = "open-search";
+ 
+ 	public static final String OP_REGISTER = "open-register";
+@@ -177,10 +174,6 @@
+ 			if (decodedMap != null) {
+ 				getSelectedContent(message, decodedMap);
+ 			}
+-		} else if (OP_SHOW_DONATION_WINDOW.equals(opid)) {
+-			Map decodedMap = message.getDecodedMap();
+-			DonationWindow.open(true, MapUtils.getMapString(decodedMap, "source-ref",
+-					"RPC"));
+ 		} else if (OP_OPEN_SEARCH.equals(opid)) {
+ 			Map decodedMap = message.getDecodedMap();
+ 			UIFunctions uif = UIFunctionsManager.getUIFunctions();
+diff -u -Nr com/aelitis/azureus/ui/swt/extlistener/StimulusRPC.java vuze-5.7.2.0/com/aelitis/azureus/ui/swt/extlistener/StimulusRPC.java
+--- com/aelitis/azureus/ui/swt/extlistener/StimulusRPC.java	2017-05-16 23:09:05.817498127 -0700
++++ com/aelitis/azureus/ui/swt/extlistener/StimulusRPC.java	2017-05-16 23:12:09.200179063 -0700
+@@ -22,7 +22,6 @@
+ 
+ import org.gudy.azureus2.core3.config.COConfigurationManager;
+ import org.gudy.azureus2.core3.util.Debug;
+-import org.gudy.azureus2.ui.swt.donations.DonationWindow;
+ 
+ import com.aelitis.azureus.core.AzureusCore;
+ import com.aelitis.azureus.core.cnetwork.ContentNetwork;
+@@ -215,10 +214,7 @@
+ 									"source-ref", null));
+ 						}
+ 
+-					} else if (DisplayListener.OP_SHOW_DONATION_WINDOW.equals(lId)) {
+-						DonationWindow.open(true, MapUtils.getMapString(decodedMap,
+-								"source-ref", "SRPC"));
+-					}
++					} 
+ 
+ 
+ 					if (System.getProperty(
+diff -u -Nr com/aelitis/azureus/ui/swt/shells/main/DebugMenuHelper.java vuze-5.7.2.0/com/aelitis/azureus/ui/swt/shells/main/DebugMenuHelper.java
+--- com/aelitis/azureus/ui/swt/shells/main/DebugMenuHelper.java	2017-05-16 23:09:05.820831388 -0700
++++ com/aelitis/azureus/ui/swt/shells/main/DebugMenuHelper.java	2017-05-16 23:10:44.888678198 -0700
+@@ -27,7 +27,6 @@
+ import org.gudy.azureus2.core3.logging.*;
+ import org.gudy.azureus2.core3.util.Debug;
+ import org.gudy.azureus2.ui.swt.debug.ObfusticateShell;
+-import org.gudy.azureus2.ui.swt.donations.DonationWindow;
+ import org.gudy.azureus2.ui.swt.shells.CoreWaiterSWT;
+ import org.gudy.azureus2.ui.swt.shells.MessageBoxShell;
+ 
+@@ -186,27 +185,6 @@
+ 		Menu menuBrowserTB = new Menu(menuDebug.getParent(), SWT.DROP_DOWN);
+ 		item.setMenu(menuBrowserTB);
+ 
+-		item = new MenuItem(menuBrowserTB, SWT.NONE);
+-		item.setText("popup check");
+-		item.addSelectionListener(new SelectionAdapter() {
+-			public void widgetSelected(SelectionEvent e) {
+-				boolean oldDebug = DonationWindow.DEBUG; 
+-				DonationWindow.DEBUG = true;
+-				DonationWindow.checkForDonationPopup();
+-				DonationWindow.DEBUG = oldDebug;
+-			}
+-		});
+-		item = new MenuItem(menuBrowserTB, SWT.NONE);
+-		item.setText("show");
+-		item.addSelectionListener(new SelectionAdapter() {
+-			public void widgetSelected(SelectionEvent e) {
+-				boolean oldDebug = DonationWindow.DEBUG; 
+-				DonationWindow.DEBUG = true;
+-				DonationWindow.open(true, "debug");
+-				DonationWindow.DEBUG = oldDebug;
+-			}
+-		});
+-
+ 		item = new MenuItem(menuDebug, SWT.NONE);
+ 		item.setText("Alerts");
+ 		item.addSelectionListener(new SelectionAdapter() {
+diff -u -Nr com/aelitis/azureus/ui/swt/shells/main/MainMenu.java vuze-5.7.2.0/com/aelitis/azureus/ui/swt/shells/main/MainMenu.java
+--- com/aelitis/azureus/ui/swt/shells/main/MainMenu.java	2017-05-16 23:09:05.820831388 -0700
++++ com/aelitis/azureus/ui/swt/shells/main/MainMenu.java	2017-05-16 23:16:06.355028284 -0700
+@@ -544,8 +544,6 @@
+   		});
+ 		}
+ 		
+-		MenuFactory.addDonationMenuItem(helpMenu);
+-
+ 		MenuFactory.addSeparatorMenuItem(helpMenu);
+ 		MenuFactory.addConfigWizardMenuItem(helpMenu);
+ 		MenuFactory.addNatTestMenuItem(helpMenu);
+diff -u -Nr com/aelitis/azureus/ui/swt/shells/main/MainWindowImpl.java vuze-5.7.2.0/com/aelitis/azureus/ui/swt/shells/main/MainWindowImpl.java
+--- com/aelitis/azureus/ui/swt/shells/main/MainWindowImpl.java	2017-05-16 23:09:05.820831388 -0700
++++ com/aelitis/azureus/ui/swt/shells/main/MainWindowImpl.java	2017-05-16 23:11:42.867418059 -0700
+@@ -50,7 +50,6 @@
+ import org.gudy.azureus2.ui.swt.debug.ObfusticateImage;
+ import org.gudy.azureus2.ui.swt.debug.ObfusticateShell;
+ import org.gudy.azureus2.ui.swt.debug.UIDebugGenerator;
+-import org.gudy.azureus2.ui.swt.donations.DonationWindow;
+ import org.gudy.azureus2.ui.swt.mainwindow.*;
+ import org.gudy.azureus2.ui.swt.minibar.AllTransfersBar;
+ import org.gudy.azureus2.ui.swt.minibar.MiniBarManager;
+@@ -480,9 +479,6 @@
+ 			} // isContent
+ 		}
+ 
+-		if (oneIsNotPlatformAndPersistent && dms_Startup == null) {
+-			DonationWindow.checkForDonationPopup();
+-		}
+ 	}
+ 
+ 	/**
+@@ -1559,8 +1555,6 @@
+ 
+ 		// Donation stuff
+ 		Map<?, ?> map = VersionCheckClient.getSingleton().getMostRecentVersionCheckData();
+-		DonationWindow.setInitialAskHours(MapUtils.getMapInt(map,
+-				"donations.askhrs", DonationWindow.getInitialAskHours()));
+ 
+ 		if (core != null) {
+ 			core.triggerLifeCycleComponentCreated(uiFunctions);
+diff -u -Nr org/gudy/azureus2/internat/MessagesBundle.properties vuze-5.7.2.0/org/gudy/azureus2/internat/MessagesBundle.properties
+--- org/gudy/azureus2/internat/MessagesBundle.properties	2017-05-16 23:09:05.834164431 -0700
++++ org/gudy/azureus2/internat/MessagesBundle.properties	2017-05-16 23:14:19.840672991 -0700
+@@ -3202,9 +3202,6 @@
+ devices.installed=Installed
+ devices.comp.missing={base.product.name} support not installed
+ devices.state=State
+-MainWindow.menu.help.donate=&Make a Donation
+-DonationWindow.noload.title=Donation
+-DonationWindow.noload.text=The donation window failed to load.  Please try again at a later time.
+ devices.xcode.only.show=Only Show Transcoded Files on Device
+ device.quit.transcoding.title=Transcode in progress
+ device.quit.transcoding.text='%1' is currently transcoding for '%2' and is %3% complete.\nIf you quit now this will need to be restarted from the beginning on next startup.
+diff -u -Nr org/gudy/azureus2/ui/swt/mainwindow/IMenuConstants.java vuze-5.7.2.0/org/gudy/azureus2/ui/swt/mainwindow/IMenuConstants.java
+--- org/gudy/azureus2/ui/swt/mainwindow/IMenuConstants.java	2017-05-16 23:09:05.844164214 -0700
++++ org/gudy/azureus2/ui/swt/mainwindow/IMenuConstants.java	2017-05-16 23:15:32.805756084 -0700
+@@ -223,6 +223,4 @@
+ 
+ 	public static final String MENU_ID_HELP_SUPPORT = "MainWindow.menu.help.support";
+ 	
+-	public static final String MENU_ID_DONATE = "MainWindow.menu.help.donate";
+-
+ }
+diff -u -Nr org/gudy/azureus2/ui/swt/mainwindow/MainMenu.java vuze-5.7.2.0/org/gudy/azureus2/ui/swt/mainwindow/MainMenu.java
+--- org/gudy/azureus2/ui/swt/mainwindow/MainMenu.java	2017-05-16 23:09:05.844164214 -0700
++++ org/gudy/azureus2/ui/swt/mainwindow/MainMenu.java	2017-05-16 23:15:52.135336759 -0700
+@@ -332,7 +332,6 @@
+ 			MenuFactory.addBetaMenuItem(helpMenu);
+ 			MenuFactory.addVoteMenuItem(helpMenu);
+ 		}
+-		MenuFactory.addDonationMenuItem(helpMenu);
+ 
+ 		MenuFactory.addSeparatorMenuItem(helpMenu);
+ 		MenuFactory.addAdvancedHelpMenuItem(helpMenu);
+diff -u -Nr org/gudy/azureus2/ui/swt/mainwindow/MenuFactory.java vuze-5.7.2.0/org/gudy/azureus2/ui/swt/mainwindow/MenuFactory.java
+--- org/gudy/azureus2/ui/swt/mainwindow/MenuFactory.java	2017-05-16 23:09:05.844164214 -0700
++++ org/gudy/azureus2/ui/swt/mainwindow/MenuFactory.java	2017-05-16 23:13:01.885700636 -0700
+@@ -58,7 +58,6 @@
+ import org.gudy.azureus2.ui.swt.components.shell.ShellManager;
+ import org.gudy.azureus2.ui.swt.config.wizard.ConfigureWizard;
+ import org.gudy.azureus2.ui.swt.debug.UIDebugGenerator;
+-import org.gudy.azureus2.ui.swt.donations.DonationWindow;
+ import org.gudy.azureus2.ui.swt.exporttorrent.wizard.ExportTorrentWizard;
+ import org.gudy.azureus2.ui.swt.help.AboutWindow;
+ import org.gudy.azureus2.ui.swt.help.HealthHelpWindow;
+@@ -2184,15 +2183,6 @@
+ 		});
+ 	}
+ 	
+-	public static MenuItem addDonationMenuItem(Menu menu) {
+-		return addMenuItem(menu, MENU_ID_DONATE, new Listener() {
+-      public void handleEvent(Event e) {
+-        DonationWindow.open(true, "menu");
+-      }
+-    });
+-	}
+-
+-	
+ 	public static MenuItem addGetPluginsMenuItem(Menu menu) {
+ 		return addMenuItem(menu, MENU_ID_PLUGINS_HELP, new Listener() {
+ 			public void handleEvent(Event e) {
