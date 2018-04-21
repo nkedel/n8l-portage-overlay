@@ -1,0 +1,29 @@
+--- make_linux.mak~	2018-03-30 07:04:36.000000000 -0700
++++ make_linux.mak	2018-04-15 20:27:32.357345082 -0700
+@@ -75,7 +75,7 @@
+ # Uncomment for Native Stats tool
+ #NATIVE_STATS = -DNATIVE_STATS
+ 
+-MOZILLACFLAGS = -O \
++MOZILLACFLAGS = $(CXXFLAGS) \
+ 	-DSWT_VERSION=$(SWT_VERSION) \
+ 	$(NATIVE_STATS) \
+ 	-DMOZILLA_STRICT_API=1 \
+@@ -121,7 +121,7 @@
+ WEBKIT_OBJECTS = swt.o webkitgtk.o webkitgtk_structs.o webkitgtk_stats.o webkitgtk_custom.o
+ GLX_OBJECTS = swt.o glx.o glx_structs.o glx_stats.o
+ 
+-CFLAGS = -O -Wall \
++CFLAGS += -Wall \
+ 		-DSWT_VERSION=$(SWT_VERSION) \
+ 		$(NATIVE_STATS) \
+ 		$(SWT_DEBUG) \
+@@ -131,7 +131,7 @@
+ 		-I$(JAVA_HOME)/include/linux \
+ 		-fPIC \
+ 		${SWT_PTR_CFLAGS}
+-LFLAGS = -shared -fPIC ${SWT_LFLAGS}
++LFLAGS = ${LDFLAGS} -shared -fPIC ${SWT_LFLAGS}
+ 
+ ifndef NO_STRIP
+ 	# -s = Remove all symbol table and relocation information from the executable.
