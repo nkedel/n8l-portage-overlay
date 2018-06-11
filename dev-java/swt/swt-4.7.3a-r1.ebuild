@@ -51,7 +51,7 @@ DEPEND="${COMMON_DEP}
 	x11-libs/libXrender
 	x11-libs/libXt
 	>=x11-libs/libXtst-1.1.0
-	x11-proto/inputproto"
+	x11-base/xorg-proto"
 RDEPEND="${COMMON_DEP}
 	virtual/jre:1.8"
 
