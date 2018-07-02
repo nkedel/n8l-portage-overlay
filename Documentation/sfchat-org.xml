@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[sfchat-org]]></name>
+    <description lang="en"><![CDATA[N8L Gentoo Overlay]]></description>
+    <homepage>https://github.com/nkedel/n8l-portage-overlay</homepage>
+    <owner type="person">
+      <name><![CDATA[Nate Edel]]></name>
+      <email>nate@natecodes.com</email>
+    </owner>
+    <source type="git">git://github.com/nkedel/n8l-portage-overlay.git</source>
+    <source type="git">https://github.com/nkedel/n8l-portage-overlay.git</source>
+    <feed>https://github.com/nkedel/n8l-portage-overlay/commits/maint.atom</feed>
+  </repo>
+</repositories>
