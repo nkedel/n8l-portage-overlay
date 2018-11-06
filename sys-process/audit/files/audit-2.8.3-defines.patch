@@ -1,0 +1,15 @@
+diff -ur audit-2.8.3-orig/lib/libaudit.h audit-2.8.3/lib/libaudit.h
+--- audit-2.8.3-orig/lib/libaudit.h	2018-10-27 20:59:15.000000000 -0400
++++ audit-2.8.3/lib/libaudit.h	2018-10-27 21:00:55.000000000 -0400
+@@ -289,7 +289,11 @@
+ #ifndef AUDIT_FILTER_FS
+ #define AUDIT_FILTER_FS		0x06 /* FS record filter in __audit_inode_child */
+ #endif
+-#define AUDIT_FILTER_EXCLUDE	AUDIT_FILTER_TYPE
++
++#ifndef AUDIT_FILTER_EXCLUDE
++#define AUDIT_FILTER_EXCLUDE    AUDIT_FILTER_TYPE
++#endif
++
+ #define AUDIT_FILTER_MASK	0x07	/* Mask to get actual filter */
+ #define AUDIT_FILTER_UNSET	0x80	/* This value means filter is unset */

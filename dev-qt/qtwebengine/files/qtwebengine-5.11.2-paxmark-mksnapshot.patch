@@ -1,0 +1,68 @@
+diff -U10 -r 5.11.2.orig/BUILD.gn 5.11.2/BUILD.gn
+--- a/src/3rdparty/chromium/v8/BUILD.gn	2018-08-27 10:21:31.000000000 +0200
++++ b/src/3rdparty/chromium/v8/BUILD.gn	2018-10-28 21:17:57.656344055 +0100
+@@ -796,20 +796,21 @@
+   args = rebase_path(outputs, root_build_dir) +
+          rebase_path(sources, root_build_dir)
+ }
+ 
+ if (v8_use_snapshot) {
+   action("run_mksnapshot") {
+     visibility = [ ":*" ]  # Only targets in this file can depend on this.
+ 
+     deps = [
+       ":mksnapshot($v8_snapshot_toolchain)",
++      ":run_paxmark",
+     ]
+ 
+     script = "tools/run.py"
+ 
+     sources = []
+ 
+     outputs = [
+       "$target_gen_dir/snapshot.cc",
+     ]
+ 
+@@ -854,20 +855,42 @@
+     }
+ 
+     if (v8_enable_fast_mksnapshot) {
+       args += [
+         "--no-turbo-rewrite-far-jumps",
+         "--no-turbo-verify-allocation",
+       ]
+     }
+   }
+ }
++action("run_paxmark") {
++  visibility = [ ":*" ]  # Only targets in this file can depend on this.
++
++  deps = [
++    ":mksnapshot($v8_snapshot_toolchain)",
++  ]
++
++  script = "/usr/sbin/pypaxctl"
++
++  sources = []
++
++  outputs = [
++     "$target_out_dir/mksnapshot",
++  ]
++
++  args = [
++    "-sm",
++    "./" + rebase_path(get_label_info(":mksnapshot($v8_snapshot_toolchain)",
++                                      "root_out_dir") + "/mksnapshot",
++                       root_build_dir),
++  ]
++}
+ 
+ action("v8_dump_build_config") {
+   script = "tools/testrunner/utils/dump_build_config.py"
+   outputs = [
+     "$root_out_dir/v8_build_config.json",
+   ]
+   is_gcov_coverage = v8_code_coverage && !is_clang
+   args = [
+     rebase_path("$root_out_dir/v8_build_config.json", root_build_dir),
+     "current_cpu=\"$current_cpu\"",
