@@ -1,5 +1,4 @@
-ScriptAlias /cgi-bin/zms "/usr/libexec/zoneminder/cgi-bin/zms"
-ScriptAlias /cgi-bin/nph-zms "/usr/libexec/zoneminder/cgi-bin/nph-zms"
+ScriptAlias /zm/cgi-bin/ "/usr/libexec/zoneminder/cgi-bin/"
 
 <Directory "/usr/libexec/zoneminder/cgi-bin">
   AllowOverride All
