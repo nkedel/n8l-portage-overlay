@@ -1,0 +1,10 @@
+diff '--color=always' -Naurd '--color=never' ots-0.5.0_old/src/Makefile.am ots-0.5.0_new/src/Makefile.am
+--- ots-0.5.0/src/Makefile.am       2019-05-08 16:29:34.158474703 +0500
++++ ots-0.5.0/src/Makefile.am       2019-05-08 17:28:04.263678394 +0500
+@@ -43,9 +43,8 @@
+libots.h
+bin_PROGRAMS=ots
+-ldadd = $(top_builddir)/src/libots-1.la $(OTS_LIBS) $(POPT_LIBS)
++ots_LDADD = libots-1.la $(OTS_LIBS) $(POPT_LIBS)
+-ots_LDADD=$(ldadd)
+install-data-local: install-libtool-import-lib
