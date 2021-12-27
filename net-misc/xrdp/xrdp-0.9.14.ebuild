@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=7
 
 inherit autotools eutils pam systemd
 
@@ -14,7 +14,7 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror"
-IUSE="debug fuse kerberos jpeg -neutrinordp pam +pulseaudio systemd -xrdpvr"
+IUSE="debug fuse kerberos jpeg -neutrinordp pam +pulseaudio systemd +vsock +xorg -xrdpvr"
 
 RDEPEND="dev-libs/openssl:0=
 	pulseaudio? ( media-sound/pulseaudio:0= )
@@ -27,6 +27,7 @@ RDEPEND="dev-libs/openssl:0=
 	pam? ( sys-libs/pam:0= )
 	neutrinordp? ( net-misc/freerdp:0= )
 	xrdpvr? ( virtual/ffmpeg:0= )"
+PDEPEND="xorg? ( net-misc/xorgxrdp )"
 DEPEND="${RDEPEND}
 	app-arch/xz-utils
 	dev-lang/nasm"
@@ -37,14 +38,25 @@ DEPEND="${RDEPEND}
 #         net-misc/x11rdp:0
 #     )"
 
+PATCHES=(
+	"${FILESDIR}/${PN}-gcc8.patch"
+)
+
 src_prepare() {
 	# don't let USE=debug adjust CFLAGS
 	sed -i -e 's/-g -O0//' configure.ac || die
 	# disallow root login by default
 	sed -i -e '/^AllowRootLogin/s/true/false/' sesman/sesman.ini || die
-	# explicitly use Xorg - and not a fallback to Xorg.wrap, to allow non-console users
-	sed -i -e '/^param=/s!Xorg!/usr/libexec/Xorg!' sesman/sesman.ini || die
 
+	# explicitly use Xorg - and not a fallback to Xorg.wrap, to allow non-console users
+	if [ -e '/usr/libexec/Xorg' ]; then
+		sed -i -e '/^param=/s!Xorg!/usr/libexec/Xorg!' sesman/sesman.ini || die
+	else
+		[ -u '/usr/bin/Xorg' ] && ewarn "Can't find an non-suid Xorg binary, xrdp requires this for proper functionality. Please specify path manually in /etc/xrdp/sesman.ini"
+		# sed -i -e '/^param=/s!Xorg!/usr/bin/Xorg!' sesman/sesman.ini || die
+	fi
+
+	default
 	eautoreconf
 }
 
@@ -74,9 +86,10 @@ src_configure() {
 		$(usex debug --enable-xrdpdebug '')
 		$(usex fuse --enable-fuse '')
 		# $(usex neutrinordp --enable-neutrinordp '')
+		$(usex vsock --enable-vsock '')
 		# $(usex xrdpvr --enable-xrdpvr '')
 
-		"$(systemd_with_unitdir)"
+		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)"
 	)
 
 	econf "${myconf[@]}"

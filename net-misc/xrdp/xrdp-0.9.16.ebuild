@@ -12,7 +12,7 @@ SRC_URI="https://github.com/neutrinolabs/xrdp/releases/download/v${PV}/${P}.tar.
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror"
 IUSE="debug fuse kerberos jpeg -neutrinordp pam +pulseaudio systemd +vsock +xorg -xrdpvr"
 
@@ -78,7 +78,7 @@ src_configure() {
 		$(use jpeg && has_version 'media-libs/libjpeg-turbo:0' && echo --enable-tjpeg)
 
 		# -- others --
-		$(use_enable debug debug-all)
+		$(use_enable debug xrdpdebug)
 		$(use_enable fuse)
 		$(use_enable neutrinordp)
 		$(use_enable vsock)
