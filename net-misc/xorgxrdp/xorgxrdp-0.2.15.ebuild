@@ -16,8 +16,7 @@ KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror"
 IUSE="glamor"
 
-RDEPEND="
-	>=net-misc/xrdp-0.9.14
+RDEPEND="net-misc/xrdp:0=
 	x11-libs/libX11:0=
 	glamor? ( >=x11-base/xorg-server-1.19.0 )"
 DEPEND="${RDEPEND}
